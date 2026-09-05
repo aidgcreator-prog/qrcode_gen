@@ -1,0 +1,16 @@
+[project]
+name = "qrcode-gen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pystray>=0.19.5",
+    "qrcode[pil]>=8.2",
+    "streamlit>=1.63.0",
+]
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.22.2",
+]

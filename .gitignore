@@ -1,0 +1,105 @@
+# ==============================================================================
+# User outputs, generated files, and data
+# ==============================================================================
+# Outputs directory content (keep the directory tracked via .gitkeep)
+outputs/*
+!outputs/.gitkeep
+output/*
+!output/.gitkeep
+
+# User data files and datasets
+data/
+datasets/
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.db
+*.sqlite
+*.sqlite3
+
+# User-generated images, media, and exports in root or working directories
+# (Application assets under image/ are preserved below)
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.webp
+*.gif
+*.bmp
+*.ico
+*.pdf
+
+# Preserve project image assets
+!image/
+!image/**
+
+# User environment variables, credentials, and secrets
+.env
+.env.*
+*.env
+secrets.toml
+.streamlit/secrets.toml
+*.pem
+*.key
+*.cert
+*.pfx
+
+# ==============================================================================
+# Python runtime and packaging
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+wheels/
+*.egg
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Streamlit runtime cache
+.streamlit/cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# ==============================================================================
+# Build & Distribution artifacts
+# ==============================================================================
+installer/Output/
+*.exe
+*.msi
+
+# Logs and diagnostic reports
+*.log
+qrcode-selftest.txt
+temp/
+tmp/
+*.tmp
+*.bak
+*.swp
+
+# ==============================================================================
+# Operating System & Editor configurations
+# ==============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
