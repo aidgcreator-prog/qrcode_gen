@@ -1,15 +1,20 @@
 # ==============================================================================
-# User outputs, generated files, and data
+# User Outputs, Generated Files & Personal Data
 # ==============================================================================
-# Outputs directory content (keep the directory tracked via .gitkeep)
+# Output directory contents (keep directory structure tracked via .gitkeep)
 outputs/*
 !outputs/.gitkeep
 output/*
 !output/.gitkeep
 
-# User data files and datasets
-data/
-datasets/
+# User data directories
+user_data/
+inputs/
+input/
+uploads/
+downloads/
+
+# User datasets and database files
 *.csv
 *.tsv
 *.xlsx
@@ -19,9 +24,10 @@ datasets/
 *.db
 *.sqlite
 *.sqlite3
+*.json.user
 
-# User-generated images, media, and exports in root or working directories
-# (Application assets under image/ are preserved below)
+# User-generated image, vector, and document exports
+# (Repository branding assets in image/ are explicitly preserved below)
 *.png
 *.jpg
 *.jpeg
@@ -31,24 +37,34 @@ datasets/
 *.bmp
 *.ico
 *.pdf
+*.tiff
 
-# Preserve project image assets
+# Preserve repository assets
 !image/
 !image/**
 
-# User environment variables, credentials, and secrets
+# ==============================================================================
+# Secrets, Private Keys & Environment Configurations
+# ==============================================================================
 .env
 .env.*
 *.env
 secrets.toml
 .streamlit/secrets.toml
+.streamlit/secrets.toml.*
 *.pem
 *.key
 *.cert
 *.pfx
+*.p12
+*.kdbx
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
 
 # ==============================================================================
-# Python runtime and packaging
+# Python Runtime, Packaging & Caches
 # ==============================================================================
 __pycache__/
 *.py[cod]
@@ -69,21 +85,35 @@ ENV/
 env.bak/
 venv.bak/
 
+# Testing, type-checking, and coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
 # Streamlit runtime cache
 .streamlit/cache/
+.streamlit/upload/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
 # ==============================================================================
-# Build & Distribution artifacts
+# Build & Distribution Artifacts
 # ==============================================================================
 installer/Output/
+Output/
+_internal/
 *.exe
 *.msi
+*.app
+*.dmg
 
-# Logs and diagnostic reports
+# Logs, diagnostics, and temporary files
 *.log
 qrcode-selftest.txt
 temp/
@@ -91,15 +121,24 @@ tmp/
 *.tmp
 *.bak
 *.swp
+*.swo
+*~
+*.orig
+*.rej
 
 # ==============================================================================
-# Operating System & Editor configurations
+# Operating System & Editor Artifacts
 # ==============================================================================
 .DS_Store
 Thumbs.db
 desktop.ini
+ehthumbs.db
 
+# IDE & Editor configurations
 .vscode/
 .idea/
+.vs/
+*.suo
+*.user
 *.sublime-project
 *.sublime-workspace
