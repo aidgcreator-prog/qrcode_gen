@@ -84,7 +84,11 @@ uv run pyinstaller --noconfirm build.spec
 ```
 - **Output**: `installer\Output\QR-Code-Generator-Setup-<version>.exe` (~47 MB).
 
-### Combined One-Line Build Command
+### Combined One-Line Build Command (or Double-Click `build.bat`)
+```powershell
+.\build.bat
+```
+Or manually:
 ```powershell
 uv run pyinstaller --noconfirm build.spec; if ($?) { & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss }
 ```
