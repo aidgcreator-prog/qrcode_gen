@@ -1,18 +1,30 @@
 # QR Code Generator 🔳
 
-A small Streamlit app that turns any link or text into a QR code. It ships with a
-system-tray launcher and a self-contained Windows installer (built with
-PyInstaller + Inno Setup), so end users need **no Python installed**.
+A fast, lightweight application that turns any link or text into a QR code. It ships with a system-tray launcher and a self-contained Windows installer (built with PyInstaller + Inno Setup), so end users need **no Python installed**.
+
+---
+
+## 📥 Downloads (Windows)
+
+Download the latest release from the [GitHub Releases](https://github.com/aidgcreator-prog/qrcode_gen/releases) page:
+
+| File | Type | Description |
+| :--- | :--- | :--- |
+| **`QR-Code-Generator-Setup-<version>.exe`** | **Windows Installer** *(Recommended)* | Installs the app per-user into `%LOCALAPPDATA%\Programs\QR Code Generator`, creates Start Menu & Desktop shortcuts, enables auto-start at login, and includes an uninstaller in Windows Settings. |
+| **`QRCodeGenerator.exe`** | **Portable Standalone** | Zero installation required. Simply double-click to run immediately. Ideal for USB drives or restricted school/work computers. |
+
+---
 
 ## Features
 
-- Encode any URL or text
+- Encode any URL or text (starts with clean blank input)
 - Live PNG preview with input-length stats
 - Options: error correction (L/M/Q/H), box size, quiet-zone border, foreground and background colors
 - Download as **PNG**, **JPEG**, or **SVG**
-- System tray app: runs in the background. Tray menu: *Open in browser*,
-  *Copy app URL*, *About* (version + repo link), *Start with Windows*, an
-  optional *update check*, and *Quit*
+- **Save to outputs/** folder automatically or with a single click
+- Custom output file naming with full international/Khmer support
+- Direct **Tutorials & Support** links to [YouTube](https://www.youtube.com/@LocalAiLabKh) and [Facebook](https://www.facebook.com/profile.php?id=61591432885068)
+- System tray app: runs in the background. Tray menu: *Open in browser*, *Copy app URL*, *About*, *YouTube Tutorials*, *Facebook Page*, *Start with Windows*, *Update check*, and *Quit*
 
 ## Project layout
 
@@ -20,9 +32,12 @@ PyInstaller + Inno Setup), so end users need **no Python installed**.
 | --- | --- |
 | `main.py` | The Streamlit app itself (QR generation + UI) |
 | `run_app.py` | Tray launcher: runs the server headless in the background |
+| `run.bat` | One-click script to launch the app locally |
+| `build.bat` | One-click script to run self-tests and compile the exe + installer |
 | `build.spec` | PyInstaller spec for the self-contained single-file exe |
 | `installer.iss` | Inno Setup script that wraps the exe into a Windows installer |
 | `image/` | Logo assets (`logo_round.png`, `logo.ico`, …) |
+| `outputs/` | Local directory where generated QR codes are saved |
 
 ## Development setup
 
@@ -46,15 +61,15 @@ repository page.
 
 ### Update check (GitHub Releases)
 
-`run_app.py` checks `https://api.github.com/repos/{owner}/{repo}/releases/latest`
+`run_app.py` checks `https://api.github.com/repos/aidgcreator-prog/qrcode_gen/releases/latest`
 on startup and shows the result as a tray menu item: it becomes
 *“⬇ Update available: vX.Y.Z — open release”* when a newer release exists
 (click to open the download page), and clicking it while up to date re-checks.
 
-The check is **disabled until you publish**: set `GITHUB_REPO = "owner/repo"`
-(the constant at the top of `run_app.py`) to your GitHub repository and keep
-`APP_VERSION` in sync with the installer version before rebuilding. Version
-comparison is semver-aware (`packaging`).
+The constant at the top of `run_app.py` is configured as:
+`GITHUB_REPO = "aidgcreator-prog/qrcode_gen"`. Keep `APP_VERSION` in sync
+with the installer version (`MyAppVersion` in `installer.iss`) before rebuilding.
+Version comparison is semver-aware (`packaging`).
 
 Run the UI test suite:
 

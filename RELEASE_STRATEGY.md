@@ -65,10 +65,10 @@ git push origin main
 1. Go to: [https://github.com/aidgcreator-prog/qrcode_gen/releases/new](https://github.com/aidgcreator-prog/qrcode_gen/releases/new)
 2. Click **Choose a tag**, type `v0.5.1`, and select **Create new tag: v0.5.1**.
 3. Set **Release title**: `v0.5.1 — QR Code Generator`
-4. In the release notes, describe the updates (e.g., outputs saving, top bar tutorials, blank default input).
-5. Drag and drop the two binary files into the **Attach binaries** section:
-   - `installer\Output\QR-Code-Generator-Setup-0.5.1.exe`
-   - `dist\QRCodeGenerator.exe`
+4. In the release notes description, paste the contents of `RELEASE_NOTES.md`.
+5. Drag and drop the binary files into the **Attach binaries** section:
+   - `installer\Output\QR-Code-Generator-Setup-0.5.1.exe` *(Windows Installer - Recommended)*
+   - `dist\QRCodeGenerator.exe` *(Portable Standalone)*
 6. Click **Publish release**.
 
 ---
