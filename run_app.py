@@ -38,9 +38,7 @@ _AUTOSTART_VALUE = "QRCodeGenerator"
 # Local app version — keep in sync with MyAppVersion in installer.iss.
 APP_VERSION = "0.5.1"
 
-# TODO: set to your GitHub "owner/repo" before shipping. Until then the update
-# check stays off and the tray menu item is hidden.
-GITHUB_REPO = "owner/repo"
+GITHUB_REPO = "aidgcreator-prog/qrcode_gen"
 
 # State shared between the background update check and the tray menu label.
 _UPDATE_STATE = {"checking": False, "latest": None, "url": None, "manual": False}
@@ -365,6 +363,12 @@ def _build_tray(url: str):
     def on_open_repo(icon, item):
         _open_in_browser(f"https://github.com/{GITHUB_REPO}")
 
+    def on_open_youtube(icon, item):
+        _open_in_browser("https://www.youtube.com/@LocalAiLabKh")
+
+    def on_open_facebook(icon, item):
+        _open_in_browser("https://www.facebook.com/profile.php?id=61591432885068")
+
     repo_configured = update_check_enabled()
     about_menu = pystray.Menu(
         pystray.MenuItem(f"QR Code Generator v{APP_VERSION}", None),
@@ -372,6 +376,8 @@ def _build_tray(url: str):
             f"GitHub: {GITHUB_REPO}" if repo_configured else "GitHub: not configured",
             on_open_repo if repo_configured else None,
         ),
+        pystray.MenuItem("YouTube Tutorials", on_open_youtube),
+        pystray.MenuItem("Facebook Page", on_open_facebook),
     )
 
     def on_toggle_autostart(icon, item):

@@ -1,5 +1,6 @@
 import io
 from pathlib import Path
+import sys
 
 import qrcode
 import streamlit as st
@@ -9,7 +10,9 @@ from qrcode.image.svg import SvgPathImage
 
 APP_DIR = Path(__file__).resolve().parent
 LOGO_PATH = APP_DIR / "image" / "logo_round.png"
-OUTPUTS_DIR = APP_DIR / "outputs"
+# In dev mode, save to project root outputs/; when frozen as an exe, save next to the executable
+BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else APP_DIR
+OUTPUTS_DIR = BASE_DIR / "outputs"
 
 
 def sanitize_filename(name: str, default: str = "qrcode") -> str:
@@ -45,7 +48,11 @@ if LOGO_PATH.exists() and hasattr(st, "logo"):
     st.logo(str(LOGO_PATH))
 
 st.title("🔳 QR Code Generator")
-st.caption("Generate a QR code for any link or text, right in your browser.")
+st.caption(
+    "Generate a QR code for any link or text. "
+    "[YouTube Tutorials](https://www.youtube.com/@LocalAiLabKh) • "
+    "[Facebook Community](https://www.facebook.com/profile.php?id=61591432885068)"
+)
 
 
 def build_qr(data: str, error_correction, box_size: int, border: int):
@@ -144,6 +151,11 @@ with st.sidebar:
         help="Automatically save generated QR code images into the outputs/ directory.",
     )
 
+    st.divider()
+    st.markdown("### 📚 Tutorials & Support")
+    st.markdown("▶️ [YouTube (@LocalAiLabKh)](https://www.youtube.com/@LocalAiLabKh)")
+    st.markdown("🌐 [Facebook Page](https://www.facebook.com/profile.php?id=61591432885068)")
+
 data = st.text_area(
     "Link or text to encode",
     value="https://youtu.be/P79jQq110c4",
@@ -224,8 +236,8 @@ if generate or data:
 
         if save_clicked:
             saved_path = save_to_outputs(download_bytes, target_filename)
-            st.success(f"Saved to `{saved_path.relative_to(APP_DIR)}`")
+            st.success(f"Saved to `outputs/{saved_path.name}`")
         elif auto_save:
             saved_path = save_to_outputs(download_bytes, target_filename)
-            st.caption(f"📁 Auto-saved to `{saved_path.relative_to(APP_DIR)}`")
+            st.caption(f"📁 Auto-saved to `outputs/{saved_path.name}`")
 
