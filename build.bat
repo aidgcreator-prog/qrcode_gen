@@ -1,5 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal
 cd /d "%~dp0"
 
 title Building QR Code Generator
@@ -9,20 +9,18 @@ echo            Building QR Code Generator
 echo =======================================================
 echo.
 
+:: 0. Close running instances of QRCodeGenerator to avoid file locking
+taskkill /f /im QRCodeGenerator.exe >nul 2>&1
+
 :: 1. Locate Inno Setup Compiler (ISCC)
 set "ISCC="
-if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" (
-    set "ISCC=C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-) else if exist "C:\Program Files\Inno Setup 6\ISCC.exe" (
-    set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
-) else (
-    where iscc >nul 2>nul
-    if !errorlevel! equ 0 (
-        for /f "delims=" %%i in ('where iscc') do set "ISCC=%%i"
-    )
+if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+if not defined ISCC if exist "C:\Program Files\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
+if not defined ISCC (
+    for /f "delims=" %%i in ('where iscc 2^>nul') do set "ISCC=%%i"
 )
 
-:: 2. Pre-build self-test
+:: 2. Pre-build validation self-test
 echo [1/3] Running pre-build validation self-test...
 set "QR_SELFTEST=1"
 where uv >nul 2>nul
@@ -76,18 +74,9 @@ echo.
 
 :: 4. Stage 2: Build Windows Installer (Inno Setup)
 echo [3/3] Compiling Windows Setup Installer with Inno Setup...
-if not defined ISCC (
-    echo.
-    echo [WARNING] Inno Setup 6 compiler (ISCC.exe) was not found.
-    echo Install Inno Setup 6 from: https://jrsoftware.org/isinfo.php
-    echo The portable executable dist\QRCodeGenerator.exe is ready to use.
-    echo.
-    pause
-    exit /b 0
-)
+if not defined ISCC goto :no_iscc
 
 "%ISCC%" installer.iss
-
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Inno Setup installer build failed.
@@ -105,3 +94,13 @@ echo  - Standalone Exe: dist\QRCodeGenerator.exe
 echo  - Setup Installer: installer\Output\
 echo.
 pause
+goto :eof
+
+:no_iscc
+echo.
+echo [WARNING] Inno Setup 6 compiler ISCC.exe was not found.
+echo Install Inno Setup 6 from: https://jrsoftware.org/isinfo.php
+echo The portable executable dist\QRCodeGenerator.exe is ready to use.
+echo.
+pause
+exit /b 0
