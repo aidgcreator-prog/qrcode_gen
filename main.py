@@ -165,7 +165,7 @@ with st.sidebar:
 
 data = st.text_area(
     "Link or text to encode",
-    value="https://youtu.be/P79jQq110c4",
+    value="",
     height=90,
     placeholder="https://example.com or any text…",
 )

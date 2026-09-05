@@ -209,6 +209,8 @@ def _selftest() -> int:
         at.run()
         if at.exception:
             raise RuntimeError(f"app exception: {at.exception}")
+        if at.get("text_area") and not at.get("text_area")[0].value:
+            at.get("text_area")[0].set_value("https://example.com").run()
         content = at.get("text_area")[0].value if at.get("text_area") else "https://example.com"
 
         for fmt in ("PNG", "JPEG", "SVG"):
