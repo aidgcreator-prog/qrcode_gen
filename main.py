@@ -47,12 +47,19 @@ st.set_page_config(page_title="QR Code Generator", page_icon=str(LOGO_PATH), lay
 if LOGO_PATH.exists() and hasattr(st, "logo"):
     st.logo(str(LOGO_PATH))
 
+# --- Top Bar: Tutorials & Support ---
+top_bar, col_yt, col_fb = st.columns([2.6, 1.2, 1.2], vertical_alignment="center")
+with top_bar:
+    st.markdown("📚 **Tutorials & Support**")
+with col_yt:
+    st.link_button("▶️ YouTube", "https://www.youtube.com/@LocalAiLabKh", help="Video tutorials on YouTube", width="stretch")
+with col_fb:
+    st.link_button("🌐 Facebook", "https://www.facebook.com/profile.php?id=61591432885068", help="Community & updates on Facebook", width="stretch")
+
+st.divider()
+
 st.title("🔳 QR Code Generator")
-st.caption(
-    "Generate a QR code for any link or text. "
-    "[YouTube Tutorials](https://www.youtube.com/@LocalAiLabKh) • "
-    "[Facebook Community](https://www.facebook.com/profile.php?id=61591432885068)"
-)
+st.caption("Generate a QR code for any link or text, right in your browser.")
 
 
 def build_qr(data: str, error_correction, box_size: int, border: int):
