@@ -10,7 +10,3 @@ dependencies = [
     "streamlit>=1.63.0",
 ]
 
-[dependency-groups]
-dev = [
-    "pyinstaller>=6.22.2",
-]

@@ -104,15 +104,35 @@ htmlcov/
 */.ipynb_checkpoints/*
 
 # ==============================================================================
-# Build & Distribution Artifacts
+# Build & Installer Files, Scripts & Packaging Artifacts
 # ==============================================================================
-installer/Output/
+# Build & installer scripts and specifications
+build.bat
+build.sh
+build.spec
+*.spec
+installer.iss
+*.iss
+installer/
+install/
+
+# Build & distribution output directories
+build/
+dist/
 Output/
+installer/Output/
 _internal/
+_MEI*/
+deployment/
+
+# Binaries, installers & packages
 *.exe
 *.msi
 *.app
 *.dmg
+*.pkg
+*.deb
+*.rpm
 
 # Logs, diagnostics, and temporary files
 *.log

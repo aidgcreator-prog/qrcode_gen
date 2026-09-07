@@ -24,7 +24,7 @@ We provide two pre-built binaries for Windows:
 - 📺 **Top Bar Tutorials & Support**: Direct header buttons to our [YouTube Channel (@LocalAiLabKh)](https://www.youtube.com/@LocalAiLabKh) and [Facebook Community](https://www.facebook.com/profile.php?id=61591432885068).
 - ⌨️ **Clean Initial State**: Input text area defaults to blank with placeholder guidance so you can start typing right away.
 - ⚡ **Tray App Launcher**: Runs quietly in the Windows system tray with instant browser access, autostart toggle, and automatic GitHub update notifications.
-- 🛠️ **One-Click Scripts**: Added `run.bat` for instant local launch and `build.bat` for automated compilation.
+- 🛠️ **One-Click Launcher**: Added `run.bat` for instant local startup on Windows.
 
 ---
 

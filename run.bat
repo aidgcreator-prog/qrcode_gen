@@ -19,11 +19,6 @@ if exist ".venv\Scripts\python.exe" (
     goto :eof
 )
 
-:: 3. Fallback to portable executable if present
-if exist "dist\QRCodeGenerator.exe" (
-    start "" "dist\QRCodeGenerator.exe" %*
-    goto :eof
-)
 
 :: 4. Fallback to system Python
 where python >nul 2>nul

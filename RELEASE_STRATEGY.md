@@ -7,7 +7,7 @@ This document outlines the version control, branching, and release publishing st
 ## 1. Branching & Push Strategy
 
 ```
-[Local Changes] ──(test via run.bat)──> [Commit] ──(build via build.bat)──> [Push to main] ──(Tag & Release)
+[Local Changes] ──(test via run.bat)──> [Commit] ──> [Push to main] ──(Tag & Release)
 ```
 
 - **Main Branch (`main`)**: The production-ready codebase.
@@ -28,31 +28,24 @@ git push -u origin main
 
 ## 2. Release Preparation Checklist
 
-Before creating a new release, follow these 3 steps:
+Before creating a new release, follow these steps:
 
-### Step 1: Synchronize Version Numbers
-Ensure the version matches across both configuration files:
-1. **`run_app.py`**:
-   ```python
-   APP_VERSION = "0.5.1"
-   ```
-2. **`installer.iss`**:
-   ```pascal
-   #define MyAppVersion "0.5.1"
-   ```
-
-### Step 2: Build the Release Binaries
-Run the one-click build script:
-```powershell
-.\build.bat
+### Step 1: Update Version Number
+Update the version number in **`run_app.py`**:
+```python
+APP_VERSION = "0.5.1"
 ```
-This runs the validation self-test and produces:
-- Portable executable: `dist\QRCodeGenerator.exe`
-- Windows installer: `installer\Output\QR-Code-Generator-Setup-0.5.1.exe`
+
+### Step 2: Test Locally
+Run the validation self-test:
+```powershell
+$env:QR_SELFTEST='1'; uv run python run_app.py
+```
+Verify that it reports `SELFTEST OK`.
 
 ### Step 3: Commit and Push
 ```powershell
-git add run_app.py installer.iss
+git add run_app.py
 git commit -m "release: v0.5.1"
 git push origin main
 ```

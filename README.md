@@ -1,12 +1,12 @@
 # QR Code Generator 🔳
 
-A fast, lightweight application that turns any link or text into a QR code. It ships with a system-tray launcher and a self-contained Windows installer (built with PyInstaller + Inno Setup), so end users need **no Python installed**.
+A fast, lightweight application that turns any link or text into a QR code. It ships with a system-tray launcher and supports pre-compiled Windows releases (standalone executable & Windows installer), so end users need **no Python installed**.
 
 ---
 
 ## 📥 Downloads (Windows)
 
-Download the latest release from the [GitHub Releases](https://github.com/aidgcreator-prog/qrcode_gen/releases) page:
+Download pre-built releases directly from the [GitHub Releases](https://github.com/aidgcreator-prog/qrcode_gen/releases) page:
 
 | File | Type | Description |
 | :--- | :--- | :--- |
@@ -32,10 +32,7 @@ Download the latest release from the [GitHub Releases](https://github.com/aidgcr
 | --- | --- |
 | `main.py` | The Streamlit app itself (QR generation + UI) |
 | `run_app.py` | Tray launcher: runs the server headless in the background |
-| `run.bat` | One-click script to launch the app locally |
-| `build.bat` | One-click script to run self-tests and compile the exe + installer |
-| `build.spec` | PyInstaller spec for the self-contained single-file exe |
-| `installer.iss` | Inno Setup script that wraps the exe into a Windows installer |
+| `run.bat` | One-click script to launch the app locally on Windows |
 | `image/` | Logo assets (`logo_round.png`, `logo.ico`, …) |
 | `outputs/` | Local directory where generated QR codes are saved |
 
@@ -48,6 +45,8 @@ uv sync                 # install dependencies into .venv
 uv run streamlit run main.py      # plain Streamlit dev server
 uv run python run_app.py          # tray-launcher version (desktop session)
 ```
+
+You can also double-click **`run.bat`** on Windows to automatically start the app.
 
 Set `QR_NO_TRAY=1` to run the launcher attached to the console with logs
 instead of the tray icon.
@@ -67,9 +66,8 @@ on startup and shows the result as a tray menu item: it becomes
 (click to open the download page), and clicking it while up to date re-checks.
 
 The constant at the top of `run_app.py` is configured as:
-`GITHUB_REPO = "aidgcreator-prog/qrcode_gen"`. Keep `APP_VERSION` in sync
-with the installer version (`MyAppVersion` in `installer.iss`) before rebuilding.
-Version comparison is semver-aware (`packaging`).
+`GITHUB_REPO = "aidgcreator-prog/qrcode_gen"`. Keep `APP_VERSION` updated
+when preparing a new release. Version comparison is semver-aware (`packaging`).
 
 Run the UI test suite:
 
@@ -83,53 +81,22 @@ print("OK")
 EOF
 ```
 
-## Packaging (Windows)
+## Running the Desktop Tray Launcher
 
-### 1. Build the self-contained exe
+`run_app.py` picks the first free port, starts the Streamlit server headless on
+`127.0.0.1`, and shows a tray icon. When running, stdout/stderr logs are kept
+in `%TEMP%\qrcode-generator.log` for diagnostics.
 
-```bash
-uv add --dev pyinstaller   # once
-uv run pyinstaller --noconfirm build.spec
-```
-
-Produces **one portable file: `dist\QRCodeGenerator.exe`** (console-free,
-~33 MB). It contains the Streamlit server, the app script, its assets, and a
-full Python runtime, and extracts itself to a temp folder on launch (first
-start can take a few extra seconds). Nothing else needs to be installed on the
-target machine — share the exe on its own if you like.
-
-Streamlit only imports its data/chart libraries lazily, so `build.spec`
-excludes `pandas`, `pyarrow`, `altair`, `pydeck`, `IPython`, `jedi`, `debugpy`,
-and friends. `numpy` is deliberately kept: streamlit's image pipeline
-(`st.logo`, `st.image`, `page_icon`) imports it unconditionally.
-
-> `run_app.py` picks the first free port, starts the server headless on
-> `127.0.0.1`, and shows a tray icon. When run windowed, stdout/stderr are kept
-> in `%TEMP%\qrcode-generator.log` for diagnostics.
->
-> Test environment overrides: `QR_NO_TRAY=1`, `QR_NO_BROWSER=1`, `QR_PORT=8501`,
-> `QR_SELFTEST=1` (runs the in-bundle QR-generation flow via Streamlit's
-> AppTest — executes the real script for PNG/JPEG/SVG and validates the bundled
-> qrcode + Pillow output — writes `qrcode-selftest.txt` to the temp folder and
-> exits 0 on success).
-> Command-line flag: `--autostart` (used by the *Start with Windows* tray
-> option; suppresses the browser popup).
-
-### 2. Build the Windows installer
-
-Requires [Inno Setup 6](https://jrsoftware.org/isinfo.php).
-
-```bash
-"/c/Program Files (x86)/Inno Setup 6/ISCC.exe" installer.iss
-```
-
-Produces `installer\Output\QR-Code-Generator-Setup-0.5.1.exe` (~45 MB). The
-installer installs per-user into `%LOCALAPPDATA%\Programs\QR Code Generator`,
-adds Start menu (and optional desktop) shortcuts, and offers to launch the app
-afterwards.
+- **Test environment overrides**:
+  - `QR_NO_TRAY=1`: Run with console logs instead of system tray icon.
+  - `QR_NO_BROWSER=1`: Do not open the browser window automatically on startup.
+  - `QR_PORT=8501`: Specify a fixed local port.
+  - `QR_SELFTEST=1`: Run the internal validation flow via Streamlit AppTest for PNG, JPEG, and SVG generation.
+- **Command-line flag**:
+  - `--autostart`: Used by the *Start with Windows* option (suppresses browser popup).
 
 ## Environment notes
 
 - Python `>=3.13` (see `.python-version`)
 - Runtime dependencies: `streamlit`, `qrcode[pil]`, `Pillow`, `pystray`
-- `pystray` + `pyinstaller` are only needed for packaging the tray build
+- Managed with [uv](https://docs.astral.sh/uv/)
