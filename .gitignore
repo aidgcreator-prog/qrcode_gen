@@ -124,10 +124,23 @@ installer/Output/
 _internal/
 _MEI*/
 deployment/
+build.spec
+*.spec
+
+# Certificates and keys
+*.cer
+*.pfx
+*.key
+*.pem
 
 # Binaries, installers & packages
 *.exe
 *.msi
+*.msix
+*.msixbundle
+*.msixupload
+*.appx
+*.appxupload
 *.app
 *.dmg
 *.pkg
