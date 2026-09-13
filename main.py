@@ -12,7 +12,29 @@ APP_DIR = Path(__file__).resolve().parent
 LOGO_PATH = APP_DIR / "image" / "logo_round.png"
 # In dev mode, save to project root outputs/; when frozen as an exe, save next to the executable
 BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else APP_DIR
-OUTPUTS_DIR = BASE_DIR / "outputs"
+
+
+def _get_outputs_dir() -> Path:
+    """Resolve a writable directory for saving generated QR codes.
+
+    Prefers `outputs/` next to the executable (or in dev root). If that path
+    is not writable (e.g. installed under Program Files or WindowsApps MSIX container),
+    falls back gracefully to ~/Pictures/QR Codes.
+    """
+    candidate = BASE_DIR / "outputs"
+    try:
+        candidate.mkdir(parents=True, exist_ok=True)
+        test_file = candidate / ".write_test"
+        test_file.touch()
+        test_file.unlink(missing_ok=True)
+        return candidate
+    except (PermissionError, OSError):
+        fallback = Path.home() / "Pictures" / "QR Codes"
+        fallback.mkdir(parents=True, exist_ok=True)
+        return fallback
+
+
+OUTPUTS_DIR = _get_outputs_dir()
 
 
 def sanitize_filename(name: str, default: str = "qrcode") -> str:

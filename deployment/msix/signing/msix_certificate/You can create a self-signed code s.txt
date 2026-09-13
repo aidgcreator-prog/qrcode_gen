@@ -1,0 +1,79 @@
+You can create a self-signed code signing certificate (`.pfx`) directly on your machine using **PowerShell**.
+
+This setup is suitable for **local development and testing**. Windows will reject the package unless the generated certificate is trusted by the local machine.
+
+---
+
+### Step 1: Generate the Self-Signed Certificate
+
+Open **PowerShell as Administrator** and run the following commands to generate the certificate and store it in your Personal store:
+
+```powershell
+# Set your publisher details (Publisher Name must match the MSIX manifest)
+$PublisherName = "CN=LocalAiLab"
+
+# Create the self-signed Code Signing Certificate
+$cert = New-SelfSignedCertificate `
+    -Type Custom `
+    -Subject $PublisherName `
+    -KeyUsage DigitalSignature `
+    -FriendlyName "MSIX Development Certificate" `
+    -CertStoreLocation "Cert:\CurrentUser\My" `
+    -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
+
+```
+
+> **Important:** The `-Subject` string (e.g., `CN=ContosoSoftware`) must match the **Publisher** field you set inside the MSIX Packaging Tool.
+
+---
+
+### Step 2: Export the Certificate as a `.pfx` File
+
+To sign your MSIX during or after packaging, export the generated certificate with a password.
+
+Run the following commands in the same PowerShell window:
+
+```powershell
+# Set a password for the .pfx file
+$Password = ConvertTo-SecureString -String "Dara2006@" -Force -AsPlainText
+
+# Export the certificate to a .pfx file on your C: drive
+Export-PfxCertificate `
+    -Cert $cert `
+    -FilePath "C:\MSIXDevCert.pfx" `
+    -Password $Password
+
+```
+
+You now have your `.pfx` certificate located at `C:\MSIXDevCert.pfx`.
+
+---
+
+### Step 3: Export the `.cer` and Install to "Trusted People"
+
+Windows will block the installation of an MSIX signed by an unrecognized authority. You must install the certificate into the **Trusted People** store on any machine where you want to test the package.
+
+#### 1. Export the Public Certificate (`.cer`):
+
+```powershell
+Export-Certificate -Cert $cert -FilePath "C:\MSIXDevCert.cer"
+
+```
+
+#### 2. Import it into the Local Machine's Trusted People Store:
+
+```powershell
+Import-Certificate `
+    -FilePath "C:\MSIXDevCert.cer" `
+    -CertStoreLocation "Cert:\LocalMachine\TrustedPeople"
+
+```
+
+---
+
+### Summary Checklist Before Signing
+
+| File | Usage |
+| --- | --- |
+| **`C:\MSIXDevCert.pfx`** | Select this inside the **MSIX Packaging Tool** along with your password to sign the package. |
+| **`C:\MSIXDevCert.cer`** | Install this on test machines under **Trusted People** so Windows allows the `.msix` to run. |

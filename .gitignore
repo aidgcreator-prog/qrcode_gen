@@ -123,11 +123,17 @@ Output/
 installer/Output/
 _internal/
 _MEI*/
-deployment/
+deployment/msix/staging/
+deployment/msix/output/
 
 # Binaries, installers & packages
 *.exe
 *.msi
+*.msix
+*.msixbundle
+*.msixupload
+*.appx
+*.appxupload
 *.app
 *.dmg
 *.pkg
