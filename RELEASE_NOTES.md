@@ -1,6 +1,6 @@
-# Release Notes — v0.5.1
+# Release Notes — v0.5.2
 
-Welcome to **QR Code Generator v0.5.1**! 🎉
+Welcome to **QR Code Generator v0.5.2**! 🎉
 
 Turn any link or text into a customizable QR code in seconds, with automatic local output saving and Windows system tray support.
 
@@ -12,12 +12,16 @@ We provide two pre-built binaries for Windows:
 
 | File | Type | Description |
 | :--- | :--- | :--- |
-| **`QR-Code-Generator-Setup-0.5.1.exe`** | **Windows Installer** *(Recommended)* | Installs the app on your PC, adds Start Menu and Desktop shortcuts, enables auto-start at login, and includes a standard uninstaller in Windows Settings. |
+| **`QR-Code-Generator-Setup-0.5.2.exe`** | **Windows Installer** *(Recommended)* | Installs the app on your PC, adds Start Menu and Desktop shortcuts, enables auto-start at login, and includes a standard uninstaller in Windows Settings. |
 | **`QRCodeGenerator.exe`** | **Portable Standalone** | Zero installation required. Simply double-click to run immediately. Ideal for USB drives or restricted work/school computers. |
 
 ---
 
-## ✨ What's New in v0.5.1
+## ✨ What's New in v0.5.2
+
+- 📣 **Promo Banner**: A lightweight, clearly-labelled promo banner below the top bar highlighting our free YouTube tutorials. Rendered locally — no third-party ad scripts, tracking, or network calls.
+
+## v0.5.1
 
 - 📁 **Dedicated Outputs Directory**: Generated QR codes automatically save to the `outputs/` folder (or can be saved manually with a single click).
 - 🏷️ **Custom File Naming**: Name your output files before downloading or saving, with full support for international and Khmer characters.

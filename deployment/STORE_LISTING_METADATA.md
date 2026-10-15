@@ -94,7 +94,7 @@ KEY FEATURES:
 
 ### What's New in this Version
 ```text
-Initial release: offline QR code generation with custom colors, sizing, error correction, SVG/PNG/JPEG export, and Windows system tray integration.
+v0.5.2: Added a clearly-labelled promo banner for free YouTube tutorials (rendered locally, no tracking). Includes offline QR code generation with custom colors, sizing, error correction, SVG/PNG/JPEG export, and Windows system tray integration.
 ```
 
 ### Product Features (Bullet Points)

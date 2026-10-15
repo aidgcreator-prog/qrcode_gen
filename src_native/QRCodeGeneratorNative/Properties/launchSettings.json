@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "QRCodeGeneratorNative (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "QRCodeGeneratorNative (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

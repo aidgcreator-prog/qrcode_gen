@@ -167,6 +167,12 @@ ehthumbs.db
 .idea/
 .vs/
 *.suo
-*.user
-*.sublime-project
-*.sublime-workspace
+# .NET / C# Build Outputs
+[Bb]in/
+[Oo]bj/
+AppPackages/
+
+# Preserve native app assets
+!src_native/**/Assets/*.png
+!src_native/**/Assets/*.ico
+

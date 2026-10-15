@@ -15,7 +15,7 @@
   <Identity
     Name="LocalAiLab.QRCodeGen"
     Publisher="CN=6990C152-BACA-44D8-B56F-C0E2D8E49CBD"
-    Version="0.5.1.0"
+    Version="0.5.2.0"
     ProcessorArchitecture="x64" />
 
   <Properties>

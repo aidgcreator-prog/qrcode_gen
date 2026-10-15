@@ -36,7 +36,7 @@ _AUTOSTART_RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 _AUTOSTART_VALUE = "QRCodeGenerator"
 
 # Local app version — keep in sync with MyAppVersion in installer.iss.
-APP_VERSION = "0.5.1"
+APP_VERSION = "0.5.2"
 
 GITHUB_REPO = "aidgcreator-prog/qrcode_gen"
 

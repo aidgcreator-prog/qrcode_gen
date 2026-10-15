@@ -78,6 +78,61 @@ with col_yt:
 with col_fb:
     st.link_button("🌐 Facebook", "https://www.facebook.com/profile.php?id=61591432885068", help="Community & updates on Facebook", width="stretch")
 
+# --- Promo Banner (self-hosted, no third-party ad scripts) ---
+# Rendered purely with local HTML/CSS so the app stays 100% offline & private
+# (Microsoft Store policy 10.10: ads must be clearly distinguishable from app content).
+BANNER = {
+    "enabled": True,
+    "label": "Promoted",
+    "icon": "▶️",
+    "title": "Learn AI & productivity tools — free on YouTube",
+    "text": "Step-by-step tutorials from Local AI Lab KH. Subscribe for new videos every week!",
+    "cta": "Watch now",
+    "url": "https://www.youtube.com/@LocalAiLabKh",
+}
+
+if BANNER["enabled"]:
+    st.markdown(
+        f"""
+<style>
+.promo-banner {{
+    position: relative; display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.85rem 1rem; margin: 0.6rem 0 0.2rem; border-radius: 14px;
+    background: linear-gradient(120deg, hsl(262 80% 58%) 0%, hsl(330 85% 60%) 55%, hsl(20 95% 60%) 100%);
+    background-size: 200% 200%; animation: promo-shift 10s ease infinite;
+    color: #fff !important; text-decoration: none !important;
+    box-shadow: 0 6px 20px hsla(300, 70%, 45%, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}}
+.promo-banner:hover {{ transform: translateY(-2px); box-shadow: 0 10px 28px hsla(300, 70%, 45%, 0.35); }}
+.promo-icon {{ font-size: 1.8rem; line-height: 1; flex-shrink: 0; }}
+.promo-body {{ flex: 1; min-width: 0; }}
+.promo-title {{ font-weight: 700; font-size: 1rem; margin: 0; color: #fff; }}
+.promo-text {{ font-size: 0.85rem; margin: 0.1rem 0 0; opacity: 0.92; color: #fff; }}
+.promo-cta {{
+    flex-shrink: 0; padding: 0.4rem 0.9rem; border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+    background: rgba(255,255,255,0.95); color: hsl(300 60% 40%);
+}}
+.promo-label {{
+    position: absolute; top: 4px; right: 10px; font-size: 0.62rem; letter-spacing: 0.06em;
+    text-transform: uppercase; opacity: 0.8; color: #fff;
+}}
+@keyframes promo-shift {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
+@media (max-width: 520px) {{ .promo-cta {{ display: none; }} }}
+</style>
+<a class="promo-banner" id="promo-banner" href="{BANNER['url']}" target="_blank" rel="noopener noreferrer">
+    <span class="promo-label">{BANNER['label']}</span>
+    <span class="promo-icon">{BANNER['icon']}</span>
+    <span class="promo-body">
+        <p class="promo-title">{BANNER['title']}</p>
+        <p class="promo-text">{BANNER['text']}</p>
+    </span>
+    <span class="promo-cta">{BANNER['cta']} →</span>
+</a>
+""",
+        unsafe_allow_html=True,
+    )
+
 st.divider()
 
 st.title("🔳 QR Code Generator")

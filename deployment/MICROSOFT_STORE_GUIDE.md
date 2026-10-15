@@ -29,7 +29,7 @@ The Microsoft Store requires that `deployment/msix/AppxManifest.xml` strictly ma
 | **Package Family Name** | `LocalAiLab.QRCodeGen_dc13tc4h2s0ba` | *(Automatically computed by Windows from Name + Publisher)* |
 | **Display Name** | `QRCodeGen` | `<DisplayName>QRCodeGen</DisplayName>` and `<uap:VisualElements DisplayName="QRCodeGen" ...>` |
 | **Publisher Display Name** | `LocalAiLab` | `<PublisherDisplayName>LocalAiLab</PublisherDisplayName>` |
-| **Version** | `0.5.1.0` | `<Identity Version="0.5.1.0" ... />` |
+| **Version** | `0.5.2.0` | `<Identity Version="0.5.2.0" ... />` |
 | **Architecture** | `x64` | `<Identity ProcessorArchitecture="x64" />` |
 
 ---
@@ -111,7 +111,7 @@ Navigate to [Microsoft Partner Center](https://partner.microsoft.com/dashboard) 
    *(or the latest `E:\qrcode_gen\deployment\msix\output\QRCodeGenerator.msix`)*
 2. Partner Center will inspect the package and validate:
    - Name: `LocalAiLab.QRCodeGen`
-   - Version: `0.5.1.0`
+   - Version: `0.5.2.0`
    - Architecture: `x64`
    - Capability: `runFullTrust`
 3. Click **Save**.
