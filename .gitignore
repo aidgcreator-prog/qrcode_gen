@@ -58,6 +58,7 @@ secrets.toml
 *.cert
 *.pfx
 *.p12
+*.cer
 *.kdbx
 id_rsa
 id_rsa.pub

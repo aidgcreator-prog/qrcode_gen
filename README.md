@@ -100,3 +100,18 @@ in `%TEMP%\qrcode-generator.log` for diagnostics.
 - Python `>=3.13` (see `.python-version`)
 - Runtime dependencies: `streamlit`, `qrcode[pil]`, `Pillow`, `pystray`
 - Managed with [uv](https://docs.astral.sh/uv/)
+
+---
+
+<a id="privacy"></a>
+## 🔒 Privacy Policy
+
+**QRCodeGen** is designed as a 100% offline, privacy-first desktop utility:
+
+1. **Zero Data Collection**: No personal data, usage telemetry, or device identifiers are collected or tracked.
+2. **Local Processing**: All QR code generation (PNG, JPEG, SVG) runs entirely on your local machine.
+3. **No Network Transmission**: User input and generated codes are never transmitted to external servers.
+4. **Local File Storage**: Output files are saved only to your local disk (e.g. `outputs/` or `Pictures/QR Codes`).
+
+For full details, please see our formal [Privacy Policy](PRIVACY.md).
+
